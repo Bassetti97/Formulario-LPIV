@@ -8,6 +8,17 @@ const PESSOAS_KEY = "pessoas"
 export class PessoaService {
     constructor(private databaseService: DatabaseService) { }
 
+    async findByNome(nome: string): Promise<Pessoa[]> {
+        const pessoas = await this.listar()
+        const filtered = pessoas?.filter(pessoa =>
+            pessoa.nome.toLocaleLowerCase().startsWith(nome.toLocaleLowerCase()))
+        if (filtered) {
+            return filtered
+        } else {
+            return []
+        }
+    }
+
     async criar(pessoa: Pessoa) {
         const pessoas = await this.listar()
         if (pessoas) {

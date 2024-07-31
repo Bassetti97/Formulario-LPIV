@@ -7,11 +7,19 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <form [formGroup]="filterForm">
+    <ion-item>
+      <ion-searchbar animated="true" placeholder="Pesquisar pelo nome" formControlName="nome"></ion-searchbar>
+    </ion-item>
+  </form>
+  
+  <ion-loading [isOpen]="loading" message="Carregando..."></ion-loading>
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Lista de Pessoas</ion-title>
     </ion-toolbar>
   </ion-header>
+
 
   <ion-list>
     <ion-item *ngFor="let pessoa of pessoas">
