@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicModule, AlertController, ViewDidEnter } from '@ionic/angular';
+import { IonicModule, AlertController, ViewDidEnter, LoadingController } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatabaseService } from '../databaseService';
@@ -32,7 +32,18 @@ export class Tab1Page implements ViewDidEnter {
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService,
     private pessoaService: PessoaService, private alertController: AlertController,
-    private router: Router, private activatedRoute: ActivatedRoute) { }
+    private router: Router, private activatedRoute: ActivatedRoute, private loadingController: LoadingController) { }
+
+
+  async ngOnInit() {
+    const loading = await this.loadingController.create({
+      message: 'Carregando...',
+      duration: 3000,
+    });
+    await loading.present();
+    
+    loading.dismiss();
+  }
 
   ionViewDidEnter(): void {
     this.formPessoa.emailToEdit = null
